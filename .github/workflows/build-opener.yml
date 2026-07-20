@@ -14,23 +14,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout helper repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Checkout official OpENer source
-        uses: actions/checkout@v4
-        with:
-          repository: EIPStackGroup/OpENer
-          ref: master
-          path: opener
-          persist-credentials: false
-
-      - name: Build and package official OpENer
+      - name: Build official OpENer without external actions
         shell: pwsh
+        env:
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: opener-build-temp
+          GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference = 'Stop'
+          $authenticatedRepo = "https://x-access-token:$env:GH_TOKEN@github.com/$env:REPOSITORY.git"
+
+          git clone --branch $env:BRANCH --single-branch $authenticatedRepo helper
+          Set-Location helper
+          git clone --branch master --depth 1 https://github.com/EIPStackGroup/OpENer.git opener
+
           $outputDir = Join-Path $PWD 'opener-build-output'
           $packageDir = Join-Path $PWD 'opener-package'
           $logFile = Join-Path $outputDir 'build.log'
@@ -116,21 +113,15 @@ jobs:
             $_ | Out-String | Tee-Object -FilePath $logFile -Append
           }
 
-      - name: Commit build output to temporary branch
-        shell: pwsh
-        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add opener-build-output
           if (-not (git diff --cached --quiet)) {
             git commit -m "Store OpENer Windows build output [skip ci]"
-            git push origin HEAD:opener-build-temp
+            git push origin HEAD:$env:BRANCH
           }
 
-      - name: Fail workflow when compilation failed
-        shell: pwsh
-        run: |
-          $status = Get-Content opener-build-output/BUILD_STATUS.txt -Raw
+          $status = Get-Content $statusFile -Raw
           Write-Host $status
           if (-not $status.StartsWith('SUCCESS')) {
             exit 1
