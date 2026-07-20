@@ -105,6 +105,10 @@ jobs:
               -DestinationPath (Join-Path $outputDir 'OpENer-Windows-x64.zip') `
               -CompressionLevel Optimal -Force
 
+            Get-FileHash (Join-Path $outputDir 'OpENer-Windows-x64.zip') -Algorithm SHA256 |
+              ForEach-Object { "$($_.Hash)  OpENer-Windows-x64.zip" } |
+              Set-Content (Join-Path $outputDir 'ZIP_SHA256.txt') -Encoding ASCII
+
             "SUCCESS`nSource commit: $sourceCommit`nGenerated: $(Get-Date -Format o)" |
               Set-Content $statusFile -Encoding UTF8
           }
@@ -126,4 +130,26 @@ jobs:
           Write-Host $status
           if (-not $status.StartsWith('SUCCESS')) {
             exit 1
+          }
+
+      - name: Upload compiled OpENer artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpENer-Official-Windows-x64
+          path: helper/opener-build-output/OpENer-Windows-x64.zip
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Store artifact identifier
+        shell: pwsh
+        env:
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+        run: |
+          Set-Location helper
+          $env:ARTIFACT_ID | Set-Content opener-build-output/ARTIFACT_ID.txt -Encoding ASCII
+          git add opener-build-output/ARTIFACT_ID.txt
+          if (-not (git diff --cached --quiet)) {
+            git commit -m "Store OpENer artifact ID [skip ci]"
+            git push origin HEAD:opener-build-temp
           }
