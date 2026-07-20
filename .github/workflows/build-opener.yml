@@ -1,43 +1,88 @@
 name: Build OpENer Windows x64
 
 on:
+  push:
+    branches:
+      - opener-build-temp
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout helper repository
         uses: actions/checkout@v4
 
-      - name: Checkout OpENer source
+      - name: Checkout official OpENer source
         uses: actions/checkout@v4
         with:
           repository: EIPStackGroup/OpENer
+          ref: master
           path: opener
 
-      - name: Install CMake
-        uses: lukka/get-cmake@latest
-
-      - name: Configure
-        shell: cmd
+      - name: Show tool versions
+        shell: pwsh
         run: |
-          cmake -S opener/source -B build -G "Visual Studio 17 2022" -A x64 -DOpENer_TESTS=OFF
+          cmake --version
+          git --version
+
+      - name: Configure Windows x64 Release
+        shell: pwsh
+        run: |
+          cmake -S opener/source -B build `
+            -G "Visual Studio 17 2022" `
+            -A x64 `
+            -DOpENer_PLATFORM=WIN32 `
+            -DOpENer_TESTS=OFF `
+            -DOpENer_TRACES=ON
 
       - name: Build Release
-        shell: cmd
-        run: |
-          cmake --build build --config Release
+        shell: pwsh
+        run: cmake --build build --config Release --parallel
 
-      - name: Package
-        shell: cmd
+      - name: Package build output
+        shell: pwsh
         run: |
-          mkdir artifact
-          copy build\Release\OpENer.exe artifact\OpENer.exe
-          copy opener\README.md artifact\README_OpENer.md
+          $exe = Get-ChildItem -Path build -Filter OpENer.exe -Recurse | Select-Object -First 1
+          if (-not $exe) {
+            Write-Host "Build tree contents:"
+            Get-ChildItem -Path build -Recurse | Select-Object FullName
+            throw "OpENer.exe was not found after the build."
+          }
 
-      - name: Upload OpENer
+          New-Item -ItemType Directory -Path artifact -Force | Out-Null
+          Copy-Item $exe.FullName artifact/OpENer.exe
+          Copy-Item opener/README.md artifact/README_OpENer.md
+          Copy-Item opener/LICENSE artifact/LICENSE.txt -ErrorAction SilentlyContinue
+
+          @"
+          Official source: https://github.com/EIPStackGroup/OpENer
+          Source branch: master
+          Source commit: $(git -C opener rev-parse HEAD)
+          Build platform: WIN32 x64
+          Build configuration: Release
+
+          Run from Command Prompt:
+            OpENer.exe <local IPv4 address>
+
+          Example:
+            OpENer.exe 192.168.10.30
+
+          TCP/UDP 44818 and UDP 2222 may need Windows Firewall rules.
+          "@ | Set-Content -Path artifact/BUILD_INFO.txt -Encoding UTF8
+
+          Get-FileHash artifact/OpENer.exe -Algorithm SHA256 |
+            ForEach-Object { "$($_.Hash)  OpENer.exe" } |
+            Set-Content artifact/SHA256SUMS.txt -Encoding ASCII
+
+      - name: Upload OpENer Windows x64
         uses: actions/upload-artifact@v4
         with:
           name: OpENer-Windows-x64
           path: artifact
+          if-no-files-found: error
+          retention-days: 7
