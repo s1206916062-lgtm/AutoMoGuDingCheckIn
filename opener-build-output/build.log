@@ -7,21 +7,165 @@ CMake suite maintained and supported by Kitware (kitware.com/cmake).
 > git --version
 git version 2.55.0.windows.2
 
-> cmake -S opener/source -B build -G Visual Studio 17 2022 -A x64 -DOpENer_PLATFORM=WIN32 -DOpENer_TESTS=OFF -DOpENer_TRACES=ON
-CMake Error at CMakeLists.txt:9 (project):
-  Generator
+> cmake -S opener/source -B build -G Visual Studio 18 2026 -A x64 -DOpENer_PLATFORM=WIN32 -DOpENer_TESTS=OFF -DOpENer_TRACES=ON
+-- The C compiler identification is MSVC 19.51.36248.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Looking for srand
+-- Looking for srand - found
+-- Looking for rand
+-- Looking for rand - found
+-- Found Doxygen: C:/Strawberry/c/bin/doxygen.exe (found version "1.10.0") found components: doxygen missing components: dot
+-- Doxygen setup done
+-- No additional activated objects
+-- Configuring done (13.2s)
+-- Generating done (0.2s)
+-- Build files have been written to: D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/build
 
-    Visual Studio 17 2022
+> cmake --build build --config Release --parallel
+MSBuild version 18.7.8+1ac568fee for .NET Framework
 
-  could not find any instance of Visual Studio.
-
-
-
--- Configuring incomplete, errors occurred!
-Exception: D:\a\_temp\d91cf7d7-a005-44ad-ba4f-6123b146fa85.ps1:28
-Line |
-  28 |      throw "$Command failed with exit code $LASTEXITCODE"
-     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | cmake failed with exit code 1
-
-
+  1>Checking Build System
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/cip/CMakeLists.txt
+  appcontype.c
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/ports/CMakeLists.txt
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/ports/nvdata/CMakeLists.txt
+  generic_networkhandler.c
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/ports/WIN32/sample_application/CMakeLists.txt
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/utils/CMakeLists.txt
+  sampleapplication.c
+  nvdata.c
+  random.c
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/ports/WIN32/CMakeLists.txt
+  xorshiftrandom.c
+  networkhandler.c
+  doublylinkedlist.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\utils\xorshiftrandom.c(22,21): warning C4244: 'function': conversion from 'time_t' to 'uint32_t', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\utils\Utils.vcxproj]
+  cipassembly.c
+  MSG_NOSIGNAL not defined. Check if your system stops on SIGPIPE, as this can happen with the send() function
+  socket_timer.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(145,11): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+  conffile.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(174,11): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(187,11): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(419,18): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(430,18): warning C4189: 'socket_timer': local variable is initialized but not referenced [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(598,34): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(666,34): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(696,45): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(710,5): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'const size_t' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+      D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(710,5):
+      consider using '%zu' in the format string
+  
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(804,21): warning C4267: '=': conversion from 'size_t' to 'long', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(813,31): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(889,40): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(918,39): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(944,5): warning C4473: 'fprintf' : not enough arguments passed for format string [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\PLATFORM_GENERIC.vcxproj]
+      D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(944,5):
+      placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+      D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\generic_networkhandler.c(944,5):
+      the missing variadic argument 1 is required by format string '%s'
+  
+  Untested. Is a shutdown() needed under Windows like for the POSIX port?
+  enipmessage.c
+  opener_error.c
+  Generating Code...
+  networkconfig.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipassembly.c(61,19): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipassembly.c(66,19): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  nvqos.c
+  cipclass3connection.c
+  Generating Code...
+  SAMPLE_APP.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\sample_application\Release\SAMPLE_APP.lib
+  Utils.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\utils\Release\Utils.lib
+  PLATFORM_GENERIC.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\Release\PLATFORM_GENERIC.lib
+  cipcommon.c
+  nvtcpip.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\WIN32\networkconfig.c(97,10): warning C4996: 'mbstowcs': This function or variable may be unsafe. Consider using mbstowcs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details. [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\WIN32PLATFORM.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\WIN32\networkconfig.c(246,18): warning C4267: '=': conversion from 'size_t' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\WIN32PLATFORM.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\WIN32\networkconfig.c(238,12): warning C4189: 'cnv_chars': local variable is initialized but not referenced [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\WIN32PLATFORM.vcxproj]
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/enet_encap/CMakeLists.txt
+  Generating Code...
+  cpf.c
+  WIN32PLATFORM.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\Release\WIN32PLATFORM.lib
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(297,37): warning C4244: '=': conversion from 'const int' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(298,41): warning C4244: '=': conversion from 'const EipUint32' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(299,35): warning C4244: '=': conversion from 'const int' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(322,65): warning C4244: '=': conversion from 'int' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(323,42): warning C4244: '=': conversion from 'const EipUint32' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(324,36): warning C4244: '=': conversion from 'const int' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(394,21): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(998,11): warning C4244: '=': conversion from 'CipDint' to 'CipReal', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(1007,11): warning C4244: '=': conversion from 'EipUint64' to 'CipLreal', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(1373,31): warning C4244: 'function': conversion from 'const EipUint16' to 'const EipUint8', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipcommon.c(1343,10): warning C4189: 'start_length': local variable is initialized but not referenced [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  Generating Code...
+  cipconnectionobject.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\enet_encap\cpf.c(167,63): warning C4244: '=': conversion from 'EipUint32' to 'CipUint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\enet_encap\ENET_ENCAP.vcxproj]
+  encap.c
+  NVDATA.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\nvdata\Release\NVDATA.lib
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionobject.c(466,59): warning C4244: '=': conversion from 'CipUdint' to 'CipUint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionobject.c(470,7): warning C4244: '=': conversion from 'CipUdint' to 'CipUint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipconnectionmanager.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\enet_encap\encap.c(280,19): warning C4267: 'function': conversion from 'size_t' to 'const EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\enet_encap\ENET_ENCAP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\enet_encap\encap.c(692,63): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\enet_encap\ENET_ENCAP.vcxproj]
+  endianconv.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(230,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(254,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(478,40): warning C4244: 'function': conversion from 'EipUint32' to 'EipUint8', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(494,12): warning C4245: '=': conversion from 'int' to 'EipUint32', signed/unsigned mismatch [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(504,40): warning C4244: 'function': conversion from 'EipUint32' to 'EipUint8', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(768,50): warning C4244: '=': conversion from 'int' to 'CipUsint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(817,50): warning C4244: '=': conversion from 'int' to 'CipUsint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(910,37): warning C4244: 'function': conversion from 'uint64_t' to 'const EipUint32', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(931,37): warning C4244: 'function': conversion from 'uint64_t' to 'const EipUint32', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(1049,50): warning C4244: '=': conversion from 'int' to 'CipUsint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(1348,12): warning C4245: 'return': conversion from 'int' to 'EipUint8', signed/unsigned mismatch [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(1655,58): warning C4267: '=': conversion from 'size_t' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipconnectionmanager.c(1669,52): warning C4267: '=': conversion from 'size_t' to 'EipUint16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipdlr.c
+  Generating Code...
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipdlr.c(100,56): warning C4267: 'function': conversion from 'size_t' to 'unsigned int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipdlr.c(138,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipethernetlink.c
+  ENET_ENCAP.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\enet_encap\Release\ENET_ENCAP.lib
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipethernetlink.c(261,19): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipidentity.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipidentity.c(234,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipidentity.c(238,27): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,const CipMessageRouterRequest *const ,CipMessageRouterResponse *const )' differs in parameter lists from 'CipCallback' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipidentity.c(287,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipidentity.c(290,32): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipioconnection.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipioconnection.c(110,72): warning C4244: 'function': conversion from 'CipUdint' to 'const CipUint', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipioconnection.c(179,54): warning C4244: '=': conversion from 'int' to 'CipInt', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipioconnection.c(153,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipioconnection.c(274,54): warning C4244: '=': conversion from 'int' to 'CipInt', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipioconnection.c(249,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipioconnection.c(469,5): warning C5286: implicit conversion from enum type 'EipStatus' to enum type 'CipError'; use an explicit cast to silence this warning [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipmessagerouter.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipmessagerouter.c(78,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipmessagerouter.c(100,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipmessagerouter.c(188,51): warning C4244: 'function': conversion from 'int' to 'EipInt16', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  ciptcpipinterface.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\ciptcpipinterface.c(370,56): warning C4267: 'function': conversion from 'size_t' to 'unsigned int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\ciptcpipinterface.c(671,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\ciptcpipinterface.c(678,17): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  cipepath.c
+  cipelectronickey.c
+  cipstring.c
+  cipstringi.c
+  cipqos.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipqos.c(206,49): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\cip\cipqos.c(208,49): warning C4113: 'EipStatus (__cdecl *)(CipInstance *restrict const ,CipMessageRouterRequest *const ,CipMessageRouterResponse *const ,const sockaddr *,const CipSessionHandle)' differs in parameter lists from 'const CipServiceFunction' [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\CIP.vcxproj]
+  ciptypes.c
+  Generating Code...
+  CIP.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\cip\Release\CIP.lib
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/src/ports/WIN32/CMakeLists.txt
+  main.c
+D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\opener\source\src\ports\WIN32\main.c(81,8): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data [D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\OpENer.vcxproj]
+  OpENer.vcxproj -> D:\a\AutoMoGuDingCheckIn\AutoMoGuDingCheckIn\helper\build\src\ports\WIN32\Release\OpENer.exe
+  Building Custom Rule D:/a/AutoMoGuDingCheckIn/AutoMoGuDingCheckIn/helper/opener/source/CMakeLists.txt

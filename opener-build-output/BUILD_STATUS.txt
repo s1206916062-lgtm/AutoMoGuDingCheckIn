@@ -1,3 +1,3 @@
-FAILED
-cmake failed with exit code 1
-Generated: 2026-07-20T09:51:28.9169067+00:00
+SUCCESS
+Source commit: 36943e6a14d115604ca2a03846fffe18bb099dba
+Generated: 2026-07-20T09:53:24.3795674+00:00
