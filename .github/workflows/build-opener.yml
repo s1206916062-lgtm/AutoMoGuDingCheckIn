@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout helper repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Checkout official OpENer source
         uses: actions/checkout@v4
@@ -23,46 +25,65 @@ jobs:
           repository: EIPStackGroup/OpENer
           ref: master
           path: opener
+          persist-credentials: false
 
-      - name: Show tool versions
+      - name: Build and package official OpENer
         shell: pwsh
         run: |
-          cmake --version
-          git --version
+          $ErrorActionPreference = 'Stop'
+          $outputDir = Join-Path $PWD 'opener-build-output'
+          $packageDir = Join-Path $PWD 'opener-package'
+          $logFile = Join-Path $outputDir 'build.log'
+          $statusFile = Join-Path $outputDir 'BUILD_STATUS.txt'
 
-      - name: Configure Windows x64 Release
-        shell: pwsh
-        run: |
-          cmake -S opener/source -B build `
-            -G "Visual Studio 17 2022" `
-            -A x64 `
-            -DOpENer_PLATFORM=WIN32 `
-            -DOpENer_TESTS=OFF `
-            -DOpENer_TRACES=ON
+          Remove-Item $outputDir -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item $packageDir -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item build -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
+          New-Item -ItemType Directory -Path $packageDir -Force | Out-Null
 
-      - name: Build Release
-        shell: pwsh
-        run: cmake --build build --config Release --parallel
-
-      - name: Package build output
-        shell: pwsh
-        run: |
-          $exe = Get-ChildItem -Path build -Filter OpENer.exe -Recurse | Select-Object -First 1
-          if (-not $exe) {
-            Write-Host "Build tree contents:"
-            Get-ChildItem -Path build -Recurse | Select-Object FullName
-            throw "OpENer.exe was not found after the build."
+          function Run-Native {
+            param(
+              [Parameter(Mandatory = $true)][string]$Command,
+              [Parameter(Mandatory = $true)][string[]]$Arguments
+            )
+            "`n> $Command $($Arguments -join ' ')" | Tee-Object -FilePath $logFile -Append
+            & $Command @Arguments 2>&1 | Tee-Object -FilePath $logFile -Append
+            if ($LASTEXITCODE -ne 0) {
+              throw "$Command failed with exit code $LASTEXITCODE"
+            }
           }
 
-          New-Item -ItemType Directory -Path artifact -Force | Out-Null
-          Copy-Item $exe.FullName artifact/OpENer.exe
-          Copy-Item opener/README.md artifact/README_OpENer.md
-          Copy-Item opener/LICENSE artifact/LICENSE.txt -ErrorAction SilentlyContinue
+          try {
+            Run-Native 'cmake' @('--version')
+            Run-Native 'git' @('--version')
+            $sourceCommit = (& git -C opener rev-parse HEAD).Trim()
 
-          @"
+            Run-Native 'cmake' @(
+              '-S', 'opener/source',
+              '-B', 'build',
+              '-G', 'Visual Studio 17 2022',
+              '-A', 'x64',
+              '-DOpENer_PLATFORM=WIN32',
+              '-DOpENer_TESTS=OFF',
+              '-DOpENer_TRACES=ON'
+            )
+
+            Run-Native 'cmake' @('--build', 'build', '--config', 'Release', '--parallel')
+
+            $exe = Get-ChildItem -Path build -Filter OpENer.exe -Recurse | Select-Object -First 1
+            if (-not $exe) {
+              throw 'OpENer.exe was not found after the build.'
+            }
+
+            Copy-Item $exe.FullName (Join-Path $packageDir 'OpENer.exe')
+            Copy-Item opener/README.md (Join-Path $packageDir 'README_OpENer.md')
+            Copy-Item opener/LICENSE (Join-Path $packageDir 'LICENSE.txt') -ErrorAction SilentlyContinue
+
+            @"
           Official source: https://github.com/EIPStackGroup/OpENer
           Source branch: master
-          Source commit: $(git -C opener rev-parse HEAD)
+          Source commit: $sourceCommit
           Build platform: WIN32 x64
           Build configuration: Release
 
@@ -72,17 +93,45 @@ jobs:
           Example:
             OpENer.exe 192.168.10.30
 
-          TCP/UDP 44818 and UDP 2222 may need Windows Firewall rules.
-          "@ | Set-Content -Path artifact/BUILD_INFO.txt -Encoding UTF8
+          Windows Firewall may need rules for:
+            TCP 44818
+            UDP 44818
+            UDP 2222
+          "@ | Set-Content -Path (Join-Path $packageDir 'BUILD_INFO.txt') -Encoding UTF8
 
-          Get-FileHash artifact/OpENer.exe -Algorithm SHA256 |
-            ForEach-Object { "$($_.Hash)  OpENer.exe" } |
-            Set-Content artifact/SHA256SUMS.txt -Encoding ASCII
+            Get-FileHash (Join-Path $packageDir 'OpENer.exe') -Algorithm SHA256 |
+              ForEach-Object { "$($_.Hash)  OpENer.exe" } |
+              Set-Content (Join-Path $packageDir 'SHA256SUMS.txt') -Encoding ASCII
 
-      - name: Upload OpENer Windows x64
-        uses: actions/upload-artifact@v4
-        with:
-          name: OpENer-Windows-x64
-          path: artifact
-          if-no-files-found: error
-          retention-days: 7
+            Compress-Archive -Path (Join-Path $packageDir '*') `
+              -DestinationPath (Join-Path $outputDir 'OpENer-Windows-x64.zip') `
+              -CompressionLevel Optimal -Force
+
+            "SUCCESS`nSource commit: $sourceCommit`nGenerated: $(Get-Date -Format o)" |
+              Set-Content $statusFile -Encoding UTF8
+          }
+          catch {
+            "FAILED`n$($_.Exception.Message)`nGenerated: $(Get-Date -Format o)" |
+              Set-Content $statusFile -Encoding UTF8
+            $_ | Out-String | Tee-Object -FilePath $logFile -Append
+          }
+
+      - name: Commit build output to temporary branch
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add opener-build-output
+          if (-not (git diff --cached --quiet)) {
+            git commit -m "Store OpENer Windows build output [skip ci]"
+            git push origin HEAD:opener-build-temp
+          }
+
+      - name: Fail workflow when compilation failed
+        shell: pwsh
+        run: |
+          $status = Get-Content opener-build-output/BUILD_STATUS.txt -Raw
+          Write-Host $status
+          if (-not $status.StartsWith('SUCCESS')) {
+            exit 1
+          }
